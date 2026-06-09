@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投票成功</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
+        body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f7fa;padding:20px;}
+        .success-card{background:white;padding:40px 30px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);text-align:center;max-width:420px;width:100%;}
+        .success-icon{width:70px;height:70px;background:#42C6A5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:white;font-size:36px;}
+        .success-title{font-size:24px;color:#333;margin-bottom:12px;font-weight:bold;}
+        .success-desc{font-size:16px;color:#666;margin-bottom:25px;line-height:1.6;}
+        .close-btn{display:inline-block;width:100%;height:50px;line-height:50px;background:#42C6A5;color:white;text-decoration:none;border-radius:8px;font-size:18px;transition:all 0.3s ease;border:none;cursor:pointer;}
+        .close-btn:hover{background:#35b08f;transform:translateY(-2px);}
+        .manual-tip{font-size:13px;color:#999;margin-top:20px;}
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h2 class="success-title">投票成功</h2>
+        <p class="success-desc">您的投票已提交完成，感谢您的参与！</p>
+        <button class="close-btn" onclick="closeWebPage()">完成</button>
+        <p class="manual-tip">如果窗口未能自动关闭，请点击右上角手动关闭</p>
+    </div>
+    <script>
+        function closeWebPage() {
+            var ua = navigator.userAgent.toLowerCase();
+            // 判断是否在微信内置浏览器中
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                // 微信内置浏览器，使用 WeixinJSBridge 来关闭窗口
+                if (typeof WeixinJSBridge !== "undefined") {
+                    WeixinJSBridge.call('closeWindow');
+                } else if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', function () {
+                        WeixinJSBridge.call('closeWindow');
+                    }, false);
+                }
+            } else {
+                // 非微信内置浏览器，尝试使用 window.close()
+                window.opener = null;
+                window.open('', '_self');
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>

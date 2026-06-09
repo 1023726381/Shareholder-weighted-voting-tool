@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>签到池 - 已签到人员</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
+        body{background:#f5f7fa;padding:20px;}
+        .container{max-width:800px;margin:0 auto;background:white;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);padding:25px;}
+        h1{font-size:24px;color:#333;margin-bottom:20px;text-align:center;}
+        table{width:100%;border-collapse:collapse;}
+        th,td{padding:12px;text-align:left;border-bottom:1px solid #eee;}
+        th{background:#42C6A5;color:white;}
+        .back-btn{display:inline-block;margin-top:20px;padding:10px 20px;background:#42C6A5;color:white;text-decoration:none;border-radius:8px;}
+        .back-btn:hover{background:#35b08f;}
+        .count{text-align:center;margin-bottom:15px;color:#666;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 签到池</h1>
+        <div class="count">已签到人数：{{ total }}</div>
+        <table>
+            <thead>
+                <tr><th>姓名</th><th>手机号后四位</th><th>签到时间</th></tr>
+            </thead>
+            <tbody>
+                {% for item in records %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.phone_last4 }}</td>
+                    <td>{{ item.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div style="text-align:center;">
+            <a href="/" class="back-btn">返回首页</a>
+            <a href="/signin" class="back-btn" style="background:#5BC0DE;margin-left:10px;">继续签到</a>
+        </div>
+    </div>
+</body>
+</html>
